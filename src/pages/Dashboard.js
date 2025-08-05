@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import api from '../api'; // ✅ use API helper
 import { useNavigate } from 'react-router-dom';
 import './Dashboard.css';
-axios.defaults.withCredentials = true;
+
 function Dashboard() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState({ title: '', description: '', dueDate: '' });
@@ -11,16 +11,10 @@ function Dashboard() {
   const tasksPerPage = 5;
   const navigate = useNavigate();
 
-
-
   const fetchTasks = async () => {
     try {
-      const endpoint =
-        view === 'overdue'
-          ? 'http://localhost:5000/api/tasks/overdue'
-          : 'http://localhost:5000/api/tasks';
-      const res = await axios.get(endpoint, { withCredentials: true });
-
+      const endpoint = view === 'overdue' ? '/tasks/overdue' : '/tasks';
+      const res = await api.get(endpoint);
       setTasks(res.data);
     } catch (err) {
       console.error('Fetch tasks error:', err);
@@ -30,7 +24,7 @@ function Dashboard() {
   const handleAdd = async (e) => {
     e.preventDefault();
     try {
-      await axios.post('http://localhost:5000/api/tasks', newTask, { withCredentials: true });
+      await api.post('/tasks', newTask);
       setNewTask({ title: '', description: '', dueDate: '' });
       fetchTasks();
     } catch (err) {
@@ -40,7 +34,7 @@ function Dashboard() {
 
   const markCompleted = async (id) => {
     try {
-      await axios.patch(`http://localhost:5000/api/tasks/${id}`, { status: 'completed' }, { withCredentials: true });
+      await api.patch(`/tasks/${id}`, { status: 'completed' });
       fetchTasks();
     } catch (err) {
       console.error('Mark complete error:', err);
@@ -48,15 +42,13 @@ function Dashboard() {
   };
 
   const handleLogout = async () => {
-  try {
-    await axios.post('http://localhost:5000/api/auth/logout', {}, { withCredentials: true });
-    navigate('/');
-  } catch (err) {
-    console.error('Logout error:', err);
-  }
-};
-
-
+    try {
+      await api.post('/auth/logout');
+      navigate('/');
+    } catch (err) {
+      console.error('Logout error:', err);
+    }
+  };
 
   useEffect(() => {
     fetchTasks();
@@ -69,7 +61,6 @@ function Dashboard() {
     const date = new Date(dateStr);
     return isNaN(date.getTime()) ? 'Invalid date' : date.toDateString();
   };
-
 
   return (
     <div className="dashboard-container">
@@ -122,10 +113,7 @@ function Dashboard() {
           const highlight = overdue && task.status !== 'completed' && Math.abs(diffDays) > 5;
 
           return (
-            <li
-              key={task._id}
-              className={`task-card ${highlight ? 'highlight' : ''}`}
-            >
+            <li key={task._id} className={`task-card ${highlight ? 'highlight' : ''}`}>
               <h4>{task.title}</h4>
               <p>{task.description}</p>
               <p>📅 Due: {formatDate(task.dueDate)}</p>

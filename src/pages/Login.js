@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../api'; // ✅ Import axios instance
 
 function Login() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -11,18 +11,15 @@ function Login() {
   };
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  try {
-    const res = await axios.post('http://localhost:5000/api/auth/login', form, {
-      withCredentials: true
-    });
-
-    navigate('/dashboard');
-  } catch (err) {
-    alert('Login failed. Please check your credentials.');
-    console.error(err);
-  }
-};
+    e.preventDefault();
+    try {
+      await api.post('/auth/login', form); // ✅ Base URL and withCredentials are already configured
+      navigate('/dashboard');
+    } catch (err) {
+      alert('Login failed. Please check your credentials.');
+      console.error(err);
+    }
+  };
 
   const backgroundStyle = {
     backgroundImage: 'url("https://img.freepik.com/premium-vector/abstract-blue-white-background-poster-with-dynamic-blue-white-business-presentation-background-with-modern-technology-network-concept-vector-illustration_181182-19557.jpg")',

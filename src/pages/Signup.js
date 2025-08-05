@@ -1,7 +1,6 @@
-// pages/Signup.js
 import React, { useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import api from '../api'; // ✅ Use axios instance
 
 function Signup() {
   const [form, setForm] = useState({ email: '', password: '' });
@@ -16,7 +15,7 @@ function Signup() {
     e.preventDefault();
     setError('');
     try {
-      await axios.post('http://localhost:5000/api/auth/signup', form);
+      await api.post('/auth/signup', form); // ✅ Using instance
       alert('Signup successful. Please login.');
       navigate('/');
     } catch (err) {
