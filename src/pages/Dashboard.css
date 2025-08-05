@@ -1,0 +1,103 @@
+body {
+  background: linear-gradient(to right, #96c1d4, #2a86a1);
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 40px auto;
+  padding: 30px;
+  background-color: rgba(214, 198, 176, 0.9);
+  border-radius: 12px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.task-form input {
+  padding: 10px;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.add-task-btn {
+  padding: 10px 16px;
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.view-toggle {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+.view-toggle button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.task-list {
+  list-style: none;
+  padding: 0;
+}
+
+.task-card {
+  background-color: #ecf0f1;
+  padding: 15px;
+  margin-bottom: 15px;
+  border-left: 6px solid #2980b9;
+  border-radius: 6px;
+}
+
+.task-card.highlight {
+  border-left: 6px solid red;
+  color: #c0392b;
+}
+
+.mark-btn {
+  margin-top: 10px;
+  padding: 8px 12px;
+  background-color: #27ae60;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.pagination {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.pagination button {
+  margin: 0 5px;
+  padding: 8px 12px;
+  border: none;
+  background-color: #34495e;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
